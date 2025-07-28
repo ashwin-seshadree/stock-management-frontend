@@ -1,18 +1,14 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-sidenav',
-  imports: [CommonModule],
+  standalone: true,
+  imports: [CommonModule, RouterLink],
   templateUrl: './sidenav.html',
   styleUrl: './sidenav.sass'
 })
 export class Sidenav {
-  collapsed = false;
   constructor() { }
-
-
-  toggleSideNav() {
-    this.collapsed = !this.collapsed;
-  }
 }

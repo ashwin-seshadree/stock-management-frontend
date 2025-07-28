@@ -1,0 +1,26 @@
+.app-container 
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  app-topnav 
+    height: 62.8px;
+    flex-shrink: 0;
+  
+  .body-container 
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+
+    app-sidenav 
+      width: 200px;
+      height: calc(100vh - 62.8px);
+      position: sticky;
+      top: 62.8px;
+      overflow-y: auto;
+    
+    main 
+      flex: 1;
+      overflow-y: auto;
+    
+  

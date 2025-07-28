@@ -5,6 +5,7 @@ import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-layout',
+    standalone: true,
   imports: [RouterOutlet, Topnav, Sidenav],
   templateUrl: './layout.html',
   styleUrl: './layout.sass'

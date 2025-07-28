@@ -14,8 +14,16 @@ export const routes: Routes = [
     children: [
       { path: 'dashboard', loadComponent: () => import('./components/pages/dashboard/dashboard').then(m => m.Dashboard), title: 'Dashboard' },
       { path: 'products', loadComponent: () => import('./components/pages/products/products').then(m => m.Products), title: 'Products' },
+      { path: 'orders', loadComponent: () => import('./components/pages/orders/orders').then(m => m.Orders), title: 'Orders' },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ]
   },
-  { path: '**', redirectTo: 'login' },
+  {
+    path: '',
+    canActivate: [authGuard],
+    component: Layout,
+    children: [
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
+    ]
+  }
 ];

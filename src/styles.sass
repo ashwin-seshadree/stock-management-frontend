@@ -1,7 +1,10 @@
-$primary-btn-color:rgb(235, 141, 0)
-$secondary-btn-color:rgb(235, 212, 0)
-$primary-body-color: #F3E2D4
+$primary-btn-color:rgb(255, 94, 0)
+$secondary-btn-color:rgba(255, 255, 255, 1)
+$primary-body-color: #ffffffff
+$nav-color-1: rgb(100 100 100);
+$nav-color-2: rgb(100 100 100);
 $primary-font-color:rgb(40, 40, 40)
+@import "bootstrap-icons/font/bootstrap-icons.css";
 
 body
   background: $primary-body-color
@@ -14,5 +17,20 @@ body
     cursor: pointer !important
 
 .btn-primary
-    background-color: $primary-btn-color !important
-    border: none !important
+  background-color: $primary-btn-color !important
+  border: none !important
+
+.btn-secondary
+  background-color: $secondary-btn-color !important
+  color: $primary-font-color
+  border: 1px solid transparent
+
+.btn-secondary:hover
+  color: $primary-font-color
+  border: 1px solid $primary-font-color
+
+.nav-color-primary
+  background-color: $nav-color-1
+
+.nav-color-secondary
+  background-color: $nav-color-2
