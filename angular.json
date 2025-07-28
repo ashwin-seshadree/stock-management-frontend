@@ -27,7 +27,12 @@
               }
             ],
             "styles": [
-                            "src/styles.sass"
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/ngx-toastr/toastr.css",
+              "src/styles.sass"
+            ],
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
             ],
             "server": "src/main.server.ts",
             "outputMode": "server",
@@ -37,6 +42,12 @@
           },
           "configurations": {
             "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/app/configs/config.ts",
+                  "with": "src/app/configs/config.prod.ts"
+                }
+              ],
               "budgets": [
                 {
                   "type": "initial",

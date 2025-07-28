@@ -1,4 +1,38 @@
-<p>this is login component</p>
-<div ngbAccordion #accordion="NgbAccordion">
-  <div ngbAccordionItem="first" #first="ngbAccordionItem" [collapsed]="false"> ... </div>
+<div class="container vh-100 d-flex justify-content-center align-items-center">
+  <div class="card shadow p-4" style="max-width: 400px; width: 100%;">
+    <h3 class="text-center mb-4">Login</h3>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" formControlName="email" placeholder="Enter email" />
+        <span class="text-danger">
+          <small class="mt-1 ms-2"
+            *ngIf="loginForm.get('email')?.touched && !loginForm.get('email')?.value">Please enter
+            email</small>
+        </span>
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" formControlName="password" placeholder="Enter password" />
+        <span class="text-danger">
+          <small class="mt-1 ms-2"
+            *ngIf="loginForm.get('password')?.touched && !loginForm.get('password')?.value">Please enter
+            password</small>
+        </span>
+      </div>
+
+      <div class="d-flex justify-content-end align-items-center mb-3">
+        <a routerLink="/forgot-password" class="text-decoration-none cursor-pointer">Forgot password?</a>
+      </div>
+
+      <!-- Submit Button -->
+      <button class="btn btn-primary button-primary w-100" type="submit" [disabled]="loginForm.invalid">Login</button>
+    </form>
+
+    <!-- <div class="text-center mt-3">
+      <small>Don't have an account? <a href="#" class="text-decoration-none">Sign up</a></small>
+    </div> -->
+  </div>
 </div>

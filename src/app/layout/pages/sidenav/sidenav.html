@@ -1,0 +1,18 @@
+<div class="bg-dark text-white p-3 collapsed" style="transition: 'width 1s'"
+    [ngStyle]="{width: collapsed ? '50px' : '200px'}" [ngClass]="{'collapsed': collapsed}">
+    <button class="btn btn-sm btn-secondary mb-3" (click)="toggleSideNav()">{{collapsed ? '→' : '←' }}</button>
+    <ul class="nav flex-column gap-3">
+        <li class="nav-item">
+            <a class="nav-link text-white" routerLink="/dashboard">Dashboard</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" routerLink="/products">Products</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" routerLink="/orders">Orders</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" routerLink="/customers">Customers</a>
+        </li>
+    </ul>
+</div>
