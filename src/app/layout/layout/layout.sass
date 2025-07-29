@@ -1,26 +1,50 @@
 .app-container 
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
+  height: 100vh
+  display: flex
+  flex-direction: column
 
-  app-topnav 
-    height: 62.8px;
-    flex-shrink: 0;
-  
   .body-container 
-    flex: 1;
-    display: flex;
-    overflow: hidden;
+    flex: 1
+    display: flex
+    overflow: hidden
 
-    app-sidenav 
-      width: 200px;
-      height: calc(100vh - 62.8px);
-      position: sticky;
-      top: 62.8px;
-      overflow-y: auto;
-    
     main 
-      flex: 1;
-      overflow-y: auto;
+      flex: 1
+      overflow-y: auto
+
+// Side nav
+.app-side-nav 
+  width: 250px
+  height: calc(100vh - 60px)
+  position: sticky
+  top: 60px
+  overflow-y: auto
+  color: #ffffff
+
+
+.side-nav-list
+  li 
+    cursor: pointer
+    color: #ffffff
+    transition: background-color 0.5s, color 0.5s
+
+    &:hover
+      background-color: #303030
+      color: #000000
     
-  
+    &.active 
+      background-color: #303030
+      color: #000000 !important
+
+  .nav-link
+    color: #ffffff !important
+
+
+
+// Top nav
+.height
+  height: 60px
+  flex-shrink: 0
+
+.f-10
+  font-size: 10px

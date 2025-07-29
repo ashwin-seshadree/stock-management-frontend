@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink, RouterModule } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../../services/auth.service';
 import { SessionService } from '../../../services/session.service';
 import { Router } from '@angular/router';
@@ -18,7 +17,7 @@ export class Login {
   loginForm!: FormGroup;
   submitted = false;
 
-  constructor(private fb: FormBuilder, private toastr: ToastrService, private authService: AuthService, private sessionService: SessionService, private router: Router) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private sessionService: SessionService, private router: Router) {
     this.initForm();
   }
 
@@ -35,18 +34,18 @@ export class Login {
     }).subscribe({
       next: (response: any) => {
         this.sessionService.startSession(response.data);
-        this.toastr.success(response.message || 'Login successful', 'Success', {
-          progressBar: true,
-          progressAnimation: 'increasing'
-        });
+        // this.toastr.success(response.message || 'Login successful', 'Success', {
+        //   progressBar: true,
+        //   progressAnimation: 'increasing'
+        // });
         this.router.navigate(['/dashboard']);
       },
       error: (error: any) => {
         const { message } = error.error;
-        this.toastr.error(message || 'Login failed', 'Error', {
-          disableTimeOut: true,
-          closeButton: true,
-        });
+        // this.toastr.error(message || 'Login failed', 'Error', {
+        //   disableTimeOut: true,
+        //   closeButton: true,
+        // });
       }
     });
   }

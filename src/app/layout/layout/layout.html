@@ -1,7 +1,36 @@
 <div class="app-container">
-    <app-topnav class="nav-color-primary"></app-topnav>
+    <nav class="navbar px-4 justify-content-between nav-color-primary height">
+        <span></span>
+        <span class="text-white">
+            <h4 class="mb-0">Janani's Home Made Food Products</h4>
+        </span>
+        <span (click)="logout()">
+            <button class="btn btn-secondary d-flex justify-content-center align-items-center">
+                <i class="bi bi-box-arrow-right me-2"></i>Logout
+            </button>
+        </span>
+    </nav>
     <div class="d-flex body-container">
-        <app-sidenav class="nav-color-secondary"></app-sidenav>
+        <div class="p-3 app-side-nav nav-color-primary d-flex flex-column align-items-between justify-content-between">
+            <!-- <button class="btn btn-sm btn-secondary mb-3" (click)="toggleSideNav()">{{collapsed ? '→' : '←' }}</button> -->
+            <ul class="nav flex-column gap-3 side-nav-list">
+                <li class="nav-item" [ngClass]="{ 'active': isActive('/dashboard') }">
+                    <a class="nav-link" routerLink="/dashboard"><i class="bi bi-grid-1x2-fill me-2"></i>Dashboard</a>
+                </li>
+                <li class="nav-item" [ngClass]="{ 'active': isActive('/products') }">
+                    <a class="nav-link" routerLink="/products"><i class="bi bi-dice-6-fill me-2"></i>Products</a>
+                </li>
+                <li class="nav-item" [ngClass]="{ 'active': isActive('/orders') }">
+                    <a class="nav-link" routerLink="/orders"><i class="bi bi-box-fill me-2"></i>Orders</a>
+                </li>
+                <li class="nav-item" [ngClass]="{ 'active': isActive('/sales') }">
+                    <a class="nav-link" routerLink="/sales"><i class="bi bi-currency-exchange me-2"></i>Sales</a>
+                </li>
+            </ul>
+            <span class="text-center f-10">
+                app version: 1.0.0
+            </span>
+        </div>
         <main class="p-4">
             <router-outlet></router-outlet>
         </main>
