@@ -8,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./dashboard.sass', '../../pagesstyles.scss']
 })
 export class Dashboard {
-
+  title: string = 'Dashboard';
 }
