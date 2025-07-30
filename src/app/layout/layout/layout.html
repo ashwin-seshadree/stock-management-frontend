@@ -1,8 +1,7 @@
 <div class="app-container">
     <nav class="navbar px-4 justify-content-between nav-color-primary height">
-        <span></span>
         <span class="text-white">
-            <h4 class="mb-0">Janani's Home Made Food Products</h4>
+            <h4 class="mb-0"><img src="appicon.webp" alt="appicon" class="me-2 w-2rem">{{ appName }}</h4>
         </span>
         <span (click)="logout()">
             <button class="btn btn-secondary d-flex justify-content-center align-items-center">
@@ -28,7 +27,7 @@
                 </li>
             </ul>
             <span class="text-center f-10">
-                app version: 1.0.0
+                app version: {{appVersion}}
             </span>
         </div>
         <main class="p-4">
