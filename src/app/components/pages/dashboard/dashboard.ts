@@ -18,13 +18,7 @@ export class Dashboard implements AfterViewInit, OnDestroy {
   }
 
   showModal() {
-    if (this._exampleModal) {
-      setTimeout(() => {
-        this._exampleModal.show();
-      }, 50);
-    } else {
-      console.error('Modal instance is not initialized correctly');
-    }
+    this._exampleModal.show();
   }
 
   ngOnDestroy() {

@@ -8,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./products.sass', '../../pagesstyles.scss']
 })
 export class Products {
-
+  title: string = 'Products';
 }

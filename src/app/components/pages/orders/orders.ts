@@ -7,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./orders.sass', '../../pagesstyles.scss']
 })
 export class Orders {
+  title: string = 'Orders';
 
 }
