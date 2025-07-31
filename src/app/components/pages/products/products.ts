@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-products',
   imports: [],
-    standalone: true,
+  standalone: true,
   templateUrl: './products.html',
   styleUrls: ['./products.sass', '../../pagesstyles.scss']
 })
