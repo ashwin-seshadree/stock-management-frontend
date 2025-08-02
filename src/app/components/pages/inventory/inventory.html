@@ -12,38 +12,25 @@
             </div>
         </div>
         <div class="col-12 mt-4">
-            <!-- Show a loading message while data is being fetched -->
-            <div *ngIf="loading$ | async" class="text-center">
-                <p>Loading inventory...</p>
-            </div>
-
-            <!-- Use *ngIf with the async pipe to only render the table when data is available -->
-            <ng-container *ngIf="inventoryList$ | async as inventoryList">
-                <table class="table table-striped table-hover table-bordered">
-                    <thead>
-                        <tr>
-                            <th scope="col">Product Name</th>
-                            <th scope="col">Description</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">In Stock</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Now you can safely loop through the list -->
-                        <tr *ngFor="let item of inventoryList" class="text-start">
-                            <td scope="row">{{item?.product_name}}</td>
-                            <td>{{item?.product_description}}</td>
-                            <td>{{item?.product_price}}</td>
-                            <td>{{item?.product_quantity}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </ng-container>
-
-            <!-- Show an error message if the list is empty after loading -->
-            <div *ngIf="!(inventoryList$ | async) && !(loading$ | async)" class="text-center">
-                <p>No inventory data available.</p>
-            </div>
+            <table class="table table-striped table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">In Stock</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of inventoryList | async" class="text-start">
+                        <td scope="row">{{item?.product_name}}<span
+                                class="badge badge-primary ms-2">{{item.product_weight}}</span></td>
+                        <td>{{item?.product_description}}</td>
+                        <td>INR. {{item?.product_price}}</td>
+                        <td>{{item?.product_quantity}}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </section>

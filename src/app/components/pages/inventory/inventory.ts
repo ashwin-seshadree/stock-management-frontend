@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Observable, BehaviorSubject, of } from 'rxjs';
 import { InventoryService } from '../../../services/inventory.service';
-import { tap, catchError, map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 
 interface InventoryItem {
   id: number;
   product_name: string;
   product_description: string;
   product_price: number;
+  product_weight: string;
   product_quantity: number;
 }
 
@@ -19,37 +19,34 @@ interface InventoryItem {
   templateUrl: './inventory.html',
   styleUrls: ['./inventory.sass', '../../pagesstyles.scss']
 })
-export class Inventory implements OnInit {
+export class Inventory {
   title: string = 'Inventory';
-  inventoryList$!: Observable<InventoryItem[]>;
+  inventoryList!: Observable<InventoryItem[]>;
   inventoryListMeta: any;
 
-  loading$ = new BehaviorSubject<boolean>(true);
-
   constructor(
-    private inventoryService: InventoryService
-  ) { }
+    private inventoryService: InventoryService,
+    private cdRef: ChangeDetectorRef
+  ) {
+  }
 
   ngOnInit() {
     this.getInventory();
   }
 
+  ngAfterViewInit() {
+  }
+
   private getInventory() {
-    this.inventoryList$ = this.inventoryService.getInventory().pipe(
-      map((response: any) => {
-        if (typeof response.data === 'object' && !Array.isArray(response.data)) {
-          return Object.values(response.data) as InventoryItem[];
-        }
-        return response.data as InventoryItem[];
-      }),
-      tap((inventoryData: InventoryItem[]) => {
-        this.loading$.next(false);
-      }),
-      catchError((error: any) => {
+    this.inventoryService.getInventory().subscribe({
+      next: (response: any) => {
+        this.inventoryList = of(response.data as InventoryItem[]);
+        this.inventoryListMeta = response.meta;
+        this.cdRef.detectChanges();
+      },
+      error: (error: any) => {
         console.error('Error fetching inventory:', error);
-        this.loading$.next(false);
-        return of([]);
-      })
-    );
+      }
+    });
   }
 }
