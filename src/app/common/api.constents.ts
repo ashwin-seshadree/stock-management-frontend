@@ -1,3 +1,4 @@
 export const apiConstants = {
-    login: "/auth/login"
+    login: "/auth/login",
+    inventory: "inventory"
 }
