@@ -21,16 +21,31 @@
                         <th scope="col">In Stock</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr *ngFor="let item of inventoryList | async" class="text-start">
-                        <td scope="row">{{item?.product_name}}<span
-                                class="badge badge-primary ms-2">{{item.product_weight}}</span></td>
-                        <td>{{item?.product_description}}</td>
-                        <td>INR. {{item?.product_price}}</td>
-                        <td>{{item?.product_quantity}}</td>
-                    </tr>
+                <tbody *ngIf="inventoryList | async as inventory">
+                    <ng-container *ngIf="inventory.length > 0; else noData">
+                        <tr *ngFor="let item of inventory" class="text-start">
+                            <td>
+                                {{ item.product_name }}
+                                <span class="badge badge-primary ms-2">{{ item.product_weight }}</span>
+                            </td>
+                            <td>{{ item.product_description }}</td>
+                            <td>&#8377; {{ item.product_price }}</td>
+                            <td>{{ item.product_quantity }}</td>
+                        </tr>
+                    </ng-container>
                 </tbody>
+
+                <ng-template #noData>
+                    <tr>
+                        <td colspan="4" class="text-center text-muted py-4">No inventory items available.</td>
+                    </tr>
+                </ng-template>
             </table>
+        </div>
+        <div *ngIf="inventoryList | async as inventory">
+            <app-paginator *ngIf="inventory.length > 0" [currentPage]="currentPage" [pageSize]="pageSize"
+                [totalItems]="totalItems" (pageChanged)="handlePageChange($event, true)">
+            </app-paginator>
         </div>
     </div>
 </section>

@@ -1,0 +1,26 @@
+.pagination {
+    display: flex;
+    justify-content: center;
+}
+
+.page-item.disabled .page-link {
+    pointer-events: none;
+    color: gray;
+}
+
+.page-item .page-link {
+    background-color: transparent;
+    color: #707070;
+    border: none;
+    cursor: pointer;
+}
+
+.page-item:hover .page-link {
+    color: rgb(255, 94, 0) !important;
+}
+
+.page-item.active .page-link {
+    font-weight: bold;
+    color: rgb(255, 94, 0) !important;
+    cursor: default;
+}
