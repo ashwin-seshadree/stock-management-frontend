@@ -12,6 +12,81 @@
             <div class="col-12 component-header">
                 <h1>{{title}}</h1>
             </div>
+            <div class="col-12 mt-4 d-flex justify-content-end">
+                <button type="button" class="btn btn-primary" (click)="showModal()">Add Product</button>
+            </div>
+            <div class="col-12 mt-4">
+                <table class="table table-striped table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Product Name</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="productList | async as products">
+                        <ng-container *ngIf="products.length > 0; else noData">
+                            <tr *ngFor="let item of products" class="text-start">
+                                <td>{{ item.product_name }}</td>
+                                <td>{{ item.description }}</td>
+                                <td>action</td>
+                            </tr>
+                        </ng-container>
+                    </tbody>
+
+                    <ng-template #noData>
+                        <tr>
+                            <td colspan="4" class="text-center text-muted py-4">No product items available.</td>
+                        </tr>
+                    </ng-template>
+                </table>
+            </div>
+            <div *ngIf="productList | async as products">
+                <app-paginator *ngIf="products.length > 0" [currentPage]="currentPage" [pageSize]="pageSize"
+                    [totalItems]="totalItems" (pageChanged)="handlePageChange($event, true)">
+                </app-paginator>
+            </div>
         </div>
     </div>
 </section>
+
+<!-- Modal section starts -->
+<!-- Add Product Modal Starts -->
+<div class="modal fade" #productModal id="productModal" tabindex="-1" aria-labelledby="productModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="productModalLabel">{{productsModalTitle}} Product</h1>
+            </div>
+            <div class="modal-body form-content-body">
+                <form [formGroup]="productForm">
+                    <div class="mb-3">
+                        <label for="product_name" class="form-label">Product Name</label>
+                        <input type="text" class="form-control" id="product_name" formControlName="product_name"
+                            placeholder="product name" autocomplete="off" />
+                        <span class="text-danger">
+                            <small class="mt-1 ms-2"
+                                *ngIf="productForm.get('product_name')?.touched && !productForm.get('product_name')?.value">Please
+                                enter product name</small>
+                        </span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Product Description</label>
+                        <textarea id="description" class="form-control" formControlName="description"
+                            placeholder="product description" autocomplete="off"> </textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                    (click)="productForm.reset()">Cancel</button>
+                <button type="button" class="btn btn-primary" [disabled]="productForm.invalid"
+                    (click)="onProductAction()">{{productsModalTitle}}
+                    Product</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Add Product Modal Ends -->
+<!-- Modal section ends -->
