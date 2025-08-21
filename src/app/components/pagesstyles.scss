@@ -28,3 +28,19 @@
         }
     }
 }
+
+// table design
+
+.equal-width-table {
+    table-layout: fixed;
+    width: 100%;
+}
+
+.equal-width-table th,
+.equal-width-table td {
+    width: 33.33%;
+    /* Divide equally among 3 columns */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

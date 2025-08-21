@@ -16,9 +16,9 @@
                 <button type="button" class="btn btn-primary" (click)="showModal()">Add Product</button>
             </div>
             <div class="col-12 mt-4">
-                <table class="table table-striped table-hover table-bordered">
+                <table class="table table-striped table-hover table-bordered equal-width-table">
                     <thead>
-                        <tr>
+                        <tr class="text-start">
                             <th scope="col">Product Name</th>
                             <th scope="col">Description</th>
                             <th scope="col">Action</th>
@@ -29,7 +29,7 @@
                             <tr *ngFor="let item of products" class="text-start">
                                 <td>{{ item.product_name }}</td>
                                 <td>{{ item.description }}</td>
-                                <td>action</td>
+                                <td class="cursor-pointer"><i class="bi bi-pencil-square"></i></td>
                             </tr>
                         </ng-container>
                     </tbody>
