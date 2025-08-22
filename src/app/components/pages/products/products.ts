@@ -11,13 +11,11 @@ import { Product as ProductService } from '../../../services/product.service';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, of } from 'rxjs';
 import { Paginator } from "../../../layout/paginator/paginator";
-
 interface ProductItem {
-  id: number;
+  product_id: number;
   product_name: string;
   description: string;
 }
-
 @Component({
   selector: 'app-products',
   imports: [CommonModule, ReactiveFormsModule, Paginator],
@@ -27,17 +25,22 @@ interface ProductItem {
 })
 export class Products {
   @ViewChild('productModal') productModal!: ElementRef;
+  @ViewChild('deleteProductModal') deleteProductModal!: ElementRef;
 
   title: string = 'Products';
   productList!: Observable<ProductItem[]> | null;
   productListMeta: any;
   _productModal!: Modal;
+  _deleteProductModal!: Modal;
   productForm!: FormGroup;
   productsModalTitle: string = 'Add';
+  isProductUpdate: boolean = false;
+  deleteProductName!: string;
 
   currentPage: number = 1;
   pageSize: number = 10;
   totalItems: number = 10;
+  product_id!: number;
 
   constructor(
     private fb: FormBuilder,
@@ -57,11 +60,27 @@ export class Products {
       backdrop: 'static',
       keyboard: false
     });
+    this._deleteProductModal = new Modal(this.deleteProductModal.nativeElement, {
+      backdrop: 'static',
+      keyboard: false
+    });
   }
 
-  showModal(isUpdate: boolean = false) {
-    if (isUpdate) this.productsModalTitle = 'Update';
+  showModal(isUpdate: boolean = false, productData?: ProductItem) {
+    if (isUpdate) {
+      this.isProductUpdate = true;
+      this.productsModalTitle = 'Update';
+      this.patchProducts(productData!);
+      this.product_id = productData!.product_id;
+    }
     this._productModal.show();
+  }
+
+  showDeleteModal(productData: ProductItem) {
+    this.product_id = productData?.product_id;
+    this.deleteProductName = productData.product_name;
+    console.log('Delete Content:', this.deleteProductName);
+    this._deleteProductModal.show();
   }
 
   initForm() {
@@ -82,16 +101,36 @@ export class Products {
     }
     const productData = this.productForm.value;
 
-    this.productService.product(productData, this.productsModalTitle === "Update" ? true : false).subscribe({
+    this.productService.product(productData, this.isProductUpdate, this.product_id).subscribe({
       next: (response: any) => {
         this.toastr.success(response.message, 'Successs', {
           progressBar: true,
           progressAnimation: 'increasing'
         });
         this._productModal.hide();
-        this.productForm.reset();
         this.getAllProducts();
-        this.productsModalTitle = 'Add';
+        this.resetData();
+      },
+      error: (error: any) => {
+        const { message } = error.error;
+        this.toastr.error(message, 'Error', {
+          disableTimeOut: true,
+          closeButton: true,
+        });
+      }
+    })
+  }
+
+  onConfirmDelete() {
+    this.productService.deleteProduct(this.product_id).subscribe({
+      next: (response: any) => {
+        this.toastr.success(response.message, 'Successs', {
+          progressBar: true,
+          progressAnimation: 'increasing'
+        });
+        this._deleteProductModal.hide();
+        this.getAllProducts();
+        this.resetData();
       },
       error: (error: any) => {
         const { message } = error.error;
@@ -127,9 +166,25 @@ export class Products {
     if (refetch) this.getAllProducts();
   }
 
+  patchProducts(productData: ProductItem) {
+    this.productForm.patchValue({
+      product_name: productData.product_name,
+      description: productData.description,
+    });
+  }
+
+  resetData() {
+    this.productsModalTitle = 'Add';
+    this.isProductUpdate = false;
+    this.productForm.reset();
+  }
+
   ngOnDestroy() {
     if (this._productModal) {
       this._productModal.dispose();
+    }
+    if (this._deleteProductModal) {
+      this._deleteProductModal.dispose();
     }
   }
 }

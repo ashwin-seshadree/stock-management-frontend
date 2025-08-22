@@ -25,9 +25,10 @@ export class Product {
     this.apiUrl = config.apiUrl + "/" + apiConstants.product;
   }
 
-  public product(data: ProductData, isUpdate: boolean = false) {
-    const url = `${this.apiUrl}`;
+  public product(data: ProductData, isUpdate: boolean = false, product_id?: number) {
+    let url = `${this.apiUrl}`;
     if (isUpdate) {
+      url = `${url}/${product_id}`;
       return this.http.put(url, data);
     }
     return this.http.post(url, data);
@@ -36,5 +37,10 @@ export class Product {
   public getAllProducts(data: paginationParams) {
     const url = `${this.apiUrl}?page=${data.page}&limit=${data.limit}`;
     return this.http.get(url);
+  }
+
+  public deleteProduct(product_id: number) {
+    const url = `${this.apiUrl}/${product_id}`;
+    return this.http.delete(url);
   }
 }
