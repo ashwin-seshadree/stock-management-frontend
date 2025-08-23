@@ -29,7 +29,11 @@
                             <tr *ngFor="let item of products" class="text-start">
                                 <td>{{ item.product_name }}</td>
                                 <td>{{ item.description }}</td>
-                                <td class="cursor-pointer"><i class="bi bi-pencil-square"></i></td>
+                                <td><span class="cursor-pointer action-btn me-3" (click)="showModal(true, item)"><i
+                                            class="bi bi-pencil-square me-1"></i>Edit</span><span
+                                        class="cursor-pointer action-btn" (click)="showDeleteModal(item)"><i
+                                            class="bi bi-trash3 me-1"></i>Delete</span>
+                                </td>
                             </tr>
                         </ng-container>
                     </tbody>
@@ -51,7 +55,7 @@
 </section>
 
 <!-- Modal section starts -->
-<!-- Add Product Modal Starts -->
+<!-- Add/Update Product Modal Starts -->
 <div class="modal fade" #productModal id="productModal" tabindex="-1" aria-labelledby="productModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
@@ -80,7 +84,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                    (click)="productForm.reset()">Cancel</button>
+                    (click)="productForm.reset(); isProductUpdate = false">Cancel</button>
                 <button type="button" class="btn btn-primary" [disabled]="productForm.invalid"
                     (click)="onProductAction()">{{productsModalTitle}}
                     Product</button>
@@ -88,5 +92,26 @@
         </div>
     </div>
 </div>
-<!-- Add Product Modal Ends -->
+<!-- Add/Update Product Modal Ends -->
+
+<!-- Delete Product Modal Starts -->
+<div class="modal fade" #deleteProductModal id="deleteProductModal" tabindex="-1"
+    aria-labelledby="deleteProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="deleteProductModalLabel">Confirm Delete Product</h1>
+            </div>
+            <div class="modal-body text-center">
+                <p class="my-0">Do you wish to delete below product(s)</p>
+                <p class="my-0"><b>{{deleteProductName}}</b></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" (click)="onConfirmDelete()">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Delete Product Modal Ends -->
 <!-- Modal section ends -->
