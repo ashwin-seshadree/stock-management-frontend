@@ -18,4 +18,10 @@ export class AuthService {
     const url = `${this.apiUrl}${apiConstants.login}`;
     return this.http.post(url, data);
   }
+
+  public forgotPassword(data: any) {
+    // const url = `${this.apiUrl}${apiConstants.forgotPassword}`;
+    // return this.http.post(url, data);
+    return true;
+  }
 }
